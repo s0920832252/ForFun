@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 namespace TDD數字練習
@@ -31,43 +32,54 @@ namespace TDD數字練習
         [Test]
         public void GetStr_B_B()
         {
-            AssertStr("B","B");
+            AssertStr("B", "B");
         }
 
         [Test]
         public void GetStr_Aa_AAa()
         {
-            AssertStr("Aa","A-Aa");
+            AssertStr("Aa", "A-Aa");
         }
 
         [Test]
         public void GetStr_aa_AAa()
         {
-            AssertStr("aa","A-Aa");
+            AssertStr("aa", "A-Aa");
         }
 
         [Test]
         public void GetStr_aA_AAa()
         {
-            AssertStr("aA","A-Aa");
+            AssertStr("aA", "A-Aa");
         }
 
         [Test]
         public void GetStr_AA_AAa()
         {
-            AssertStr("AA","A-Aa");
+            AssertStr("AA", "A-Aa");
         }
 
         [Test]
         public void GetStr_ab_ABb()
         {
-            AssertStr("ab","A-Bb");
+            AssertStr("ab", "A-Bb");
         }
 
         [Test]
         public void GetStr_ba_BAa()
         {
-            AssertStr("ba","B-Aa");
+            AssertStr("ba", "B-Aa");
+        }
+
+        [Test]
+        public void GetStr_NullOrEmpty_ThrowException()
+        {
+            static void TestDelegate() => new Alphanumeric().GetStr(string.Empty);
+
+            static void TestDelegate2() => new Alphanumeric().GetStr(null);
+
+            Assert.Throws<NotImplementedException>(TestDelegate);
+            Assert.Throws<NotImplementedException>(TestDelegate2);
         }
 
 

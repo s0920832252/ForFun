@@ -1,17 +1,24 @@
+using System;
+
 namespace TDD數字練習
 {
     public class Alphanumeric
     {
         public string GetStr(string str)
         {
-            if (str.Length == 2)
+            if (str?.Length == 1)
+            {
+                return str;
+            }
+
+            if (str?.Length == 2)
             {
                 var firstChar  = str[0];
                 var secondChar = str[1];
                 return $"{ToUpper(firstChar)}-{ToUpper(secondChar)}{ToLower(secondChar)}";
             }
 
-            if (str.Length == 3)
+            if (str?.Length == 3)
             {
                 var firstChar  = str[0];
                 var secondChar = str[1];
@@ -20,7 +27,7 @@ namespace TDD數字練習
                         $"{ToUpper(firstChar)}-{ToUpper(secondChar)}{ToLower(secondChar)}-{ToUpper(thirdChar)}{ToLower(thirdChar)}{ToLower(thirdChar)}";
             }
 
-            return str;
+            throw new NotImplementedException();
         }
 
         private static char ToLower(char secondChar)
