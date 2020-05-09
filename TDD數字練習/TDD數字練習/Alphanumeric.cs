@@ -8,7 +8,7 @@ namespace TDD數字練習
 {
     public class Alphanumeric
     {
-        public string GetStr(string str)
+        public static string GetStr(string str)
         {
             if (string.IsNullOrEmpty(str))
             {

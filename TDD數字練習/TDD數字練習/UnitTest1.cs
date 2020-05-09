@@ -74,9 +74,9 @@ namespace TDD數字練習
         [Test]
         public void GetStr_NullOrEmpty_ThrowException()
         {
-            static void TestDelegate() => new Alphanumeric().GetStr(string.Empty);
+            static void TestDelegate() => Alphanumeric.GetStr(string.Empty);
 
-            static void TestDelegate2() => new Alphanumeric().GetStr(null);
+            static void TestDelegate2() => Alphanumeric.GetStr(null);
 
             Assert.Throws<NotImplementedException>(TestDelegate);
             Assert.Throws<NotImplementedException>(TestDelegate2);
@@ -91,7 +91,7 @@ namespace TDD數字練習
 
         private static void AssertStr(string input, string expected)
         {
-            Assert.AreEqual(expected, new Alphanumeric().GetStr(input));
+            Assert.AreEqual(expected, Alphanumeric.GetStr(input));
         }
     }
 }
