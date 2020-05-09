@@ -118,6 +118,18 @@ namespace TDD數字練習
             AssertStr("abc", "A-Bb-Ccc");
         }
 
+        [Test]
+        public void GetStr_A2c4E6_A22Ccc4444Eeeee666666()
+        {
+            AssertStr("A2c4E6","A-22-Ccc-4444-Eeeee-666666");
+        }
+
+        [Test]
+        public void GetStr_1a3D5f_1Aa333Dddd55555Ffffff()
+        {
+            AssertStr("1a3D5f","1-Aa-333-Dddd-55555-Ffffff");
+        }
+
         private static void AssertStr(string input, string expected)
         {
             Assert.AreEqual(expected, Alphanumeric.GetStr(input));
