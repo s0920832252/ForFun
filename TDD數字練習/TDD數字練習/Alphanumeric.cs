@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using NUnit.Framework;
 
 namespace TDD數字練習
@@ -14,28 +15,8 @@ namespace TDD數字練習
                 throw new NotImplementedException();
             }
 
-            if (str?.Length == 1)
-            {
-                return str;
-            }
-
-            if (str?.Length == 2)
-            {
-                var firstChar  = str[0];
-                var secondChar = str[1];
-                return $"{GetCorrectFormatStr(firstChar, 1)}-{GetCorrectFormatStr(secondChar, 2)}";
-            }
-
-            if (str?.Length == 3)
-            {
-                var firstChar  = str[0];
-                var secondChar = str[1];
-                var thirdChar  = str[2];
-                return
-                        $"{GetCorrectFormatStr(firstChar, 1)}-{GetCorrectFormatStr(secondChar, 2)}-{GetCorrectFormatStr(thirdChar, 3)}";
-            }
-
-            return null;
+            return str.Select((c,    index) => GetCorrectFormatStr(c, index + 1))
+                      .Aggregate((l, r) => $"{l}-{r}");
         }
 
         private static string GetCorrectFormatStr(char c, int count)
