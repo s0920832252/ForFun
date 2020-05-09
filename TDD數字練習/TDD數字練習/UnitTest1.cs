@@ -88,6 +88,29 @@ namespace TDD數字練習
             Assert.Throws<NotImplementedException>(TestDelegate2);
         }
 
+        [Test]
+        public void GetStr_1_1()
+        {
+            AssertStr("1","1");
+        }
+
+        [Test]
+        public void GetStr_a1_A_11()
+        {
+            AssertStr("a1","A-11");
+        }
+
+        [Test]
+        public void GetStr_1a_1Aa()
+        {
+            AssertStr("1a","1-Aa");
+        }
+
+        [Test]
+        public void GetStr_123_122333()
+        {
+            AssertStr("123","1-22-333");
+        }
 
         [Test]
         public void GetStr_abc_ABbCcc()
