@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 
 namespace TDD數字練習
 {
@@ -6,6 +9,11 @@ namespace TDD數字練習
     {
         public string GetStr(string str)
         {
+            if (string.IsNullOrEmpty(str))
+            {
+                throw new NotImplementedException();
+            }
+
             if (str?.Length == 1)
             {
                 return str;
@@ -15,7 +23,7 @@ namespace TDD數字練習
             {
                 var firstChar  = str[0];
                 var secondChar = str[1];
-                return $"{ToUpper(firstChar)}-{ToUpper(secondChar)}{ToLower(secondChar)}";
+                return $"{GetCorrectFormatStr(firstChar, 1)}-{GetCorrectFormatStr(secondChar, 2)}";
             }
 
             if (str?.Length == 3)
@@ -24,10 +32,16 @@ namespace TDD數字練習
                 var secondChar = str[1];
                 var thirdChar  = str[2];
                 return
-                        $"{ToUpper(firstChar)}-{ToUpper(secondChar)}{ToLower(secondChar)}-{ToUpper(thirdChar)}{ToLower(thirdChar)}{ToLower(thirdChar)}";
+                        $"{GetCorrectFormatStr(firstChar, 1)}-{GetCorrectFormatStr(secondChar, 2)}-{GetCorrectFormatStr(thirdChar, 3)}";
             }
 
-            throw new NotImplementedException();
+            return null;
+        }
+
+        private static string GetCorrectFormatStr(char c, int count)
+        {
+            return string.Concat(Enumerable.Repeat(c, count)
+                                           .Select((s, index) => index == 0 ? ToUpper(s) : ToLower(s)));
         }
 
         private static char ToLower(char secondChar)
