@@ -27,6 +27,12 @@ namespace TDD數字練習
             AssertStr("A", "A");
         }
 
+        [Test]
+        public void GetStr_B_B()
+        {
+            AssertStr("B","B");
+        }
+
         private static void AssertStr(string input, string expected)
         {
             Assert.AreEqual(expected, new Alphanumeric().GetStr(input));
