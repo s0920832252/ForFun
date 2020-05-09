@@ -70,6 +70,13 @@ namespace TDD數字練習
             AssertStr("ba","B-Aa");
         }
 
+
+        [Test]
+        public void GetStr_abc_ABbCcc()
+        {
+            AssertStr("abc", "A-Bb-Ccc");
+        }
+
         private static void AssertStr(string input, string expected)
         {
             Assert.AreEqual(expected, new Alphanumeric().GetStr(input));

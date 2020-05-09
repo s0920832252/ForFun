@@ -6,9 +6,18 @@ namespace TDD數字練習
         {
             if (str.Length == 2)
             {
-                var firstChar = str[0];
+                var firstChar  = str[0];
                 var secondChar = str[1];
                 return $"{ToUpper(firstChar)}-{ToUpper(secondChar)}{ToLower(secondChar)}";
+            }
+
+            if (str.Length == 3)
+            {
+                var firstChar  = str[0];
+                var secondChar = str[1];
+                var thirdChar  = str[2];
+                return
+                        $"{ToUpper(firstChar)}-{ToUpper(secondChar)}{ToLower(secondChar)}-{ToUpper(thirdChar)}{ToLower(thirdChar)}{ToLower(thirdChar)}";
             }
 
             return str;
