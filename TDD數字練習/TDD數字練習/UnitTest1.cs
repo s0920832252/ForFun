@@ -39,6 +39,36 @@ namespace TDD數字練習
             AssertStr("Aa","A-Aa");
         }
 
+        [Test]
+        public void Get_aa_AAa()
+        {
+            AssertStr("aa","A-Aa");
+        }
+
+        [Test]
+        public void Get_aA_AAa()
+        {
+            AssertStr("aA","A-Aa");
+        }
+
+        [Test]
+        public void Get_AA_AAa()
+        {
+            AssertStr("AA","A-Aa");
+        }
+
+        [Test]
+        public void Get_ab_ABb()
+        {
+            AssertStr("ab","A-Bb");
+        }
+
+        [Test]
+        public void Get_ba_BAa()
+        {
+            AssertStr("ba","B-Aa");
+        }
+
         private static void AssertStr(string input, string expected)
         {
             Assert.AreEqual(expected, new Alphanumeric().GetStr(input));
