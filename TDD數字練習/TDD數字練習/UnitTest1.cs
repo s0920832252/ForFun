@@ -13,6 +13,7 @@ namespace TDD數字練習
     ///      input ab -> output A-Bb
     ///      input ba -> output B-Aa
     ///      input abc -> A-Bb-Ccc
+    ///      input 無字母 or null -> 丟例外
     /// </summary>
     public class Tests
     {
@@ -34,40 +35,42 @@ namespace TDD數字練習
         }
 
         [Test]
-        public void Get_Aa_AAa()
+        public void GetStr_Aa_AAa()
         {
             AssertStr("Aa","A-Aa");
         }
 
         [Test]
-        public void Get_aa_AAa()
+        public void GetStr_aa_AAa()
         {
             AssertStr("aa","A-Aa");
         }
 
         [Test]
-        public void Get_aA_AAa()
+        public void GetStr_aA_AAa()
         {
             AssertStr("aA","A-Aa");
         }
 
         [Test]
-        public void Get_AA_AAa()
+        public void GetStr_AA_AAa()
         {
             AssertStr("AA","A-Aa");
         }
 
         [Test]
-        public void Get_ab_ABb()
+        public void GetStr_ab_ABb()
         {
             AssertStr("ab","A-Bb");
         }
 
         [Test]
-        public void Get_ba_BAa()
+        public void GetStr_ba_BAa()
         {
             AssertStr("ba","B-Aa");
         }
+
+     
 
         private static void AssertStr(string input, string expected)
         {
