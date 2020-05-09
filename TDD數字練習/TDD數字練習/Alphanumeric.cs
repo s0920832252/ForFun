@@ -10,13 +10,10 @@ namespace TDD數字練習
     {
         public static string GetStr(string str)
         {
-            if (string.IsNullOrEmpty(str))
-            {
-                throw new NotImplementedException();
-            }
-
-            return str.Select((c,    index) => GetCorrectFormatStr(c, index + 1))
-                      .Aggregate((l, r) => $"{l}-{r}");
+            return string.IsNullOrEmpty(str) ?
+                           throw new NotImplementedException() :
+                           str.Select((c,    index) => GetCorrectFormatStr(c, index + 1))
+                              .Aggregate((l, r) => $"{l}-{r}");
         }
 
         private static string GetCorrectFormatStr(char c, int count)
