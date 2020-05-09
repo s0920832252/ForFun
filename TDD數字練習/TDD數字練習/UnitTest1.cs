@@ -24,11 +24,12 @@ namespace TDD數字練習
         [Test]
         public void GetStr_A_A()
         {
-            var input        = "A";
-            var expected     = "A";
-            var alphanumeric = new Alphanumeric();
-            var result       = alphanumeric.GetStr(input);
-            Assert.AreEqual(expected, result);
+            AssertStr("A", "A");
+        }
+
+        private static void AssertStr(string input, string expected)
+        {
+            Assert.AreEqual(expected, new Alphanumeric().GetStr(input));
         }
     }
 }
