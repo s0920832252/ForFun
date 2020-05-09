@@ -21,6 +21,7 @@ namespace TDD數字練習
     ///      input a1 -> output A-11
     ///      input 1a -> output 1-Aa
     ///      input 123 -> output 1-22-333
+    ///      input a12 -> output A-11-222
     /// </summary>
     public class Tests
     {
@@ -110,6 +111,12 @@ namespace TDD數字練習
         public void GetStr_123_122333()
         {
             AssertStr("123","1-22-333");
+        }
+
+        [Test]
+        public void GetStr_a12_A11222()
+        {
+            AssertStr("a12","A-11-222");
         }
 
         [Test]
