@@ -103,6 +103,12 @@ str.Select((c,    index) => GetCorrectFormatStr(c, index + 1))
 但還是跑測試
 
 14. 按照 Reshaper 的建議 , 重構程式 e.g. 將 if 改成三元運算式
+```csharp
+ return string.IsNullOrEmpty(str) ?
+                           throw new NotImplementedException() :
+                           str.Select((c,    index) => GetCorrectFormatStr(c, index + 1))
+                              .Aggregate((l, r) => $"{l}-{r}");
+```
 
 跑測試
 
