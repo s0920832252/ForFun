@@ -61,11 +61,11 @@
    - 因為發現重複子字串的部分 , 重複子字串的字數是依照他在原字串的位置而決定的.  這個特性.
    - 抽出 "產生重複子字串的部分" 為方法   
     e.g. Aa
-   - private static string GetCorrectFormatStr(char c, int count)
-        {
-            return string.Concat(Enumerable.Repeat(c, count)
-                                           .Select((s, index) => index == 0 ? ToUpper(s) : ToLower(s)));
-        }
+private static string GetCorrectFormatStr(char c, int count)
+{
+                return string.Concat(Enumerable.Repeat(c, count)
+                             .Select((s, index) => index == 0 ? ToUpper(s) : ToLower(s)));
+}
     
 跑測試
 
