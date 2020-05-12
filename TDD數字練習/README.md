@@ -1,7 +1,7 @@
     /// <summary>
     /// 英數字重構練習專案 : 修改看看
     /// e.g. input A -> output A
-    ///      input B -> output B
+    ///      input B -> output B        ---第一階段側資
     ///      input Aa -> output A-Aa
     ///      input aa -> output A-Aa
     ///      input aA -> output A-Aa
@@ -9,12 +9,12 @@
     ///      input ab -> output A-Bb
     ///      input ba -> output B-Aa
     ///      input abc -> A-Bb-Ccc
-    ///      input 無字母 or null -> 丟例外
+    ///      input 無字母 or null -> 丟例外   ---第二階段側資
     ///      input 1 -> output 1
     ///      input a1 -> output A-11
     ///      input 1a -> output 1-Aa
     ///      input 123 -> output 1-22-333
-    ///      input a12 -> output A-11-222
+    ///      input a12 -> output A-11-222     ---第三階段側資
     /// </summary>
 
 1. 一開始完全沒有想法 , 所以先從最簡單的開始. 
