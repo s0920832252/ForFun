@@ -46,6 +46,17 @@
 6. 因為兩個字的側資都通過了 , 選擇重構程式
    - 因為看不出來可以做什麼 , 但感覺好像有壞味道 , 所以將變數都抽出來 , 看看效果再決定 .
    - 發現 char.ToUpper 方法被重複呼叫 , 所以抽出方法 ToUpper() & ToLower()
+   ```csharp
+   private static char ToLower(char secondChar)
+        {
+            return char.ToLower(secondChar);
+        }
+
+        private static char ToUpper(char c)
+        {
+            return char.ToUpper(c);
+        }
+   ```
    
 跑測試
 
