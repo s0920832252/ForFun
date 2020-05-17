@@ -33,15 +33,13 @@ namespace TDD_AccountSystem_練習
                     }
                     else if (currentDate.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
                     {
-                        var dateTime = budget.DateTimeFromBudget();
-                        var start = new DateTime(dateTime.Year,dateTime.Month,1);
+                        var start = FirstDay(budget);
                         var end = endDate;
                         days = (end - start).Days + 1;
                     }
                     else
                     {
-                        var dateTime = budget.DateTimeFromBudget();
-                        var start    = new DateTime(dateTime.Year, dateTime.Month, 1);
+                        var start = FirstDay(budget);
                         var end = LastDay(budget);
                         days = (end - start).Days + 1;
                     }
@@ -56,10 +54,17 @@ namespace TDD_AccountSystem_練習
             return amountOfBudget;
         }
 
+        private static DateTime FirstDay(Budget budget)
+        {
+            var dateTime = budget.DateTimeFromBudget();
+            var start = new DateTime(dateTime.Year, dateTime.Month, 1);
+            return start;
+        }
+
         private static DateTime LastDay(Budget budget)
         {
             var dateTime = budget.DateTimeFromBudget();
-            var end      = new DateTime(dateTime.Year, dateTime.Month, budget.DaysInMonth());
+            var end = new DateTime(dateTime.Year, dateTime.Month, budget.DaysInMonth());
             return end;
         }
 
