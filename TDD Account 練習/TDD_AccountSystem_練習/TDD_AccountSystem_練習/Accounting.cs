@@ -5,7 +5,6 @@ namespace TDD_AccountSystem_練習
 {
     class Accounting
     {
-
         public decimal QueryBudget(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)
@@ -17,7 +16,7 @@ namespace TDD_AccountSystem_練習
             }
 
             var amountOfBudget = 0m;
-            var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
+            var currentDate    = new DateTime(startDate.Year, startDate.Month, 1);
 
 
             while (currentDate <= endDate)
@@ -26,11 +25,11 @@ namespace TDD_AccountSystem_練習
                 if (budget != null)
                 {
                     int days;
-                    if (currentDate.Month == startDate.Month)
+                    if (currentDate.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
                     {
                         days = DateTime.DaysInMonth(currentDate.Year, currentDate.Month) - startDate.Day + 1;
                     }
-                    else if (currentDate.Year == endDate.Year && currentDate.Month == endDate.Month)
+                    else if (currentDate.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
                     {
                         days = endDate.Day;
                     }
@@ -40,25 +39,23 @@ namespace TDD_AccountSystem_練習
                     }
 
                     var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-                    amountOfBudget += (decimal)budget.Amount / daysInMonth * days;
+                    amountOfBudget += (decimal) budget.Amount / daysInMonth * days;
                 }
 
                 currentDate = currentDate.AddMonths(1);
             }
+
             return amountOfBudget;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
         {
-
-
             var daysInMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
 
             var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == startDate.ToString("yyyyMM"));
-            if (budget != null) return (decimal)budget.Amount / daysInMonth * days;
+            if (budget != null) return (decimal) budget.Amount / daysInMonth * days;
             return 0;
         }
-
 
 
         public IBudgetRepo Repo { get; set; }
