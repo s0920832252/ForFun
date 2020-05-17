@@ -27,7 +27,7 @@ namespace TDD_AccountSystem_練習
                     int days;
                     if (currentDate.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
                     {
-                        var daysOfMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+                        var daysOfMonth = DaysInMonth(budget);
                         days = daysOfMonth - startDate.Day + 1;
                     }
                     else if (currentDate.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
@@ -36,7 +36,7 @@ namespace TDD_AccountSystem_練習
                     }
                     else
                     {
-                        var dayOfMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+                        var dayOfMonth = DaysInMonth(budget);
                         days = dayOfMonth;
                     }
 
