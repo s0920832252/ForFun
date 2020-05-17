@@ -21,12 +21,13 @@ namespace TDD_AccountSystem_練習
 
             while (currentDate <= endDate)
             {
+                var queryPeriod = new Period(startDate, endDate);
                 var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    var overlappingDays = new Period(startDate, endDate).OverLappingDays(new Period(budget.FirstDay(), budget.LastDay()));
+                    var overlappingDays = queryPeriod.OverLappingDays(new Period(budget.FirstDay(), budget.LastDay()));
                     var daysInMonth = budget.DaysInMonth();
-                    amountOfBudget += (decimal)budget.Amount / daysInMonth * overlappingDays;
+                    amountOfBudget += budget.Amount / daysInMonth * overlappingDays;
                 }
 
                 currentDate = currentDate.AddMonths(1);
