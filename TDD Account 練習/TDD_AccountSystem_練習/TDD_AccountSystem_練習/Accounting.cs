@@ -5,11 +5,16 @@ namespace TDD_AccountSystem_練習
 {
     class Accounting
     {
-        
+
         public decimal QueryBudget(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)
                 return 0;
+
+            if (startDate.Month == endDate.Month)
+            {
+                return BudgetOfMonth(startDate, (endDate - startDate).Days + 1);
+            }
 
             var budget = 0m;
             var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
@@ -17,20 +22,12 @@ namespace TDD_AccountSystem_練習
 
             var i = 0;
 
-            while(currentDate <= endDate)
+            while (currentDate <= endDate)
             {
                 if (i == 0)
                 {
-                    
-                    if (startDate.Month == endDate.Month)
-                    {
-                        budget += BudgetOfMonth(startDate, (endDate - startDate).Days + 1);
-                    }
-                    else
-                    {
-                        budget += BudgetOfMonth(startDate,
-                            DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day + 1);
-                    }
+                    budget += BudgetOfMonth(startDate,
+                                            DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day + 1);
 
                 }
                 else if (currentDate.Year == endDate.Year && currentDate.Month == endDate.Month)
