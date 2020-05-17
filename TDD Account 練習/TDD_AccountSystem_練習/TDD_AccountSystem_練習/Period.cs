@@ -15,8 +15,9 @@ namespace TDD_AccountSystem_練習
 
         public int OverLappingDays(Budget budget)
         {
-            var start = budget.FirstDay() > StartDate ? budget.FirstDay() : StartDate;
-            var end   = budget.LastDay()  > EndDate ? EndDate : budget.LastDay();
+            var anotherPeriod = new Period(budget.FirstDay(),budget.LastDay());
+            var start = anotherPeriod.StartDate > StartDate ? anotherPeriod.StartDate : StartDate;
+            var end   = anotherPeriod.EndDate  > EndDate ? EndDate : anotherPeriod.EndDate;
             return (end - start).Days + 1;
         }
     }
