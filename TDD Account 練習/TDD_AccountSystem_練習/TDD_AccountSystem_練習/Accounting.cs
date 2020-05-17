@@ -24,14 +24,15 @@ namespace TDD_AccountSystem_練習
                 var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
+                    DateTime budgetTime = budget.DateTimeFromBudget();
                     DateTime start;
                     DateTime end;
-                    if (currentDate.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
+                    if (budgetTime.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
                     {
                         start = startDate;
                         end = budget.LastDay();
                     }
-                    else if (currentDate.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
+                    else if (budgetTime.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
                     {
                         start = budget.FirstDay();
                         end = endDate;
