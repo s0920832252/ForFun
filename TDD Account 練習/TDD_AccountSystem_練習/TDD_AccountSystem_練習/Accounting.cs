@@ -24,13 +24,13 @@ namespace TDD_AccountSystem_練習
             {
                 if (currentDate.Month == startDate.Month)
                 {
-                    budget += BudgetOfMonth(startDate,
-                                            DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day + 1);
+                    budget += BudgetOfMonth(currentDate,
+                                            DateTime.DaysInMonth(currentDate.Year, currentDate.Month) - startDate.Day + 1);
 
                 }
                 else if (currentDate.Year == endDate.Year && currentDate.Month == endDate.Month)
                 {
-                    budget += BudgetOfMonth(endDate, endDate.Day);
+                    budget += BudgetOfMonth(currentDate, endDate.Day);
                 }
                 else
                 {
