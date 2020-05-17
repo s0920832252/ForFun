@@ -35,7 +35,16 @@ namespace TDD_AccountSystem_練習
                 {
                     days = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
                 }
-                amountOfBudget += BudgetOfMonth(currentDate, days);
+
+                var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+
+                var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
+                if (budget != null) amountOfBudget += (decimal)budget.Amount / daysInMonth * days;
+                else
+                {
+                    amountOfBudget += 0;
+                }
+
                 currentDate = currentDate.AddMonths(1);
             }
             return amountOfBudget;
