@@ -15,27 +15,9 @@ namespace TDD_AccountSystem_練習
 
         public int OverLappingDays(Budget budget)
         {
-            DateTime budgetTime = budget.DateTimeFromBudget();
-            DateTime start;
-            DateTime end;
-            if (budgetTime.ToString("yyyyMM") == StartDate.ToString("yyyyMM"))
-            {
-                start = StartDate;
-                end   = budget.LastDay();
-            }
-            else if (budgetTime.ToString("yyyyMM") == EndDate.ToString("yyyyMM"))
-            {
-                start = budget.FirstDay();
-                end   = EndDate;
-            }
-            else
-            {
-                start = budget.FirstDay();
-                end   = budget.LastDay();
-            }
-
-            var days = (end - start).Days + 1;
-            return days;
+            var start = budget.FirstDay() > StartDate ? budget.FirstDay() : StartDate;
+            var end   = budget.LastDay()  > EndDate ? EndDate : budget.LastDay();
+            return (end - start).Days + 1;
         }
     }
 }
