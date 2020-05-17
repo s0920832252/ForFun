@@ -27,7 +27,7 @@ namespace TDD_AccountSystem_練習
                     int days;
                     if (currentDate.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
                     {
-                        var daysOfMonth = DaysInMonth(budget);
+                        var daysOfMonth = budget.DaysInMonth();
                         days = daysOfMonth - startDate.Day + 1;
                     }
                     else if (currentDate.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
@@ -36,11 +36,11 @@ namespace TDD_AccountSystem_練習
                     }
                     else
                     {
-                        var dayOfMonth = DaysInMonth(budget);
+                        var dayOfMonth = budget.DaysInMonth();
                         days = dayOfMonth;
                     }
 
-                    var daysInMonth = DaysInMonth(budget);
+                    var daysInMonth = budget.DaysInMonth();
                     amountOfBudget += (decimal) budget.Amount / daysInMonth * days;
                 }
 
@@ -48,17 +48,6 @@ namespace TDD_AccountSystem_練習
             }
 
             return amountOfBudget;
-        }
-
-        private static int DaysInMonth(Budget budget)
-        {
-            var dateTimeFromBudget = DateTimeFromBudget(budget);
-            return DateTime.DaysInMonth(dateTimeFromBudget.Year, dateTimeFromBudget.Month);
-        }
-
-        private static DateTime DateTimeFromBudget(Budget budget)
-        {
-            return DateTime.ParseExact(budget.YearMonth,"yyyyMM",null);
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
