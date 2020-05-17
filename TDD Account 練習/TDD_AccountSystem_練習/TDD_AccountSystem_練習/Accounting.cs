@@ -40,8 +40,7 @@ namespace TDD_AccountSystem_練習
                         days = dayOfMonth;
                     }
 
-                    var dateTimeFromBudget = DateTimeFromBudget(budget);
-                    var daysInMonth = DateTime.DaysInMonth(dateTimeFromBudget.Year, dateTimeFromBudget.Month);
+                    var daysInMonth = DaysInMonth(budget);
                     amountOfBudget += (decimal) budget.Amount / daysInMonth * days;
                 }
 
@@ -49,6 +48,12 @@ namespace TDD_AccountSystem_練習
             }
 
             return amountOfBudget;
+        }
+
+        private static int DaysInMonth(Budget budget)
+        {
+            var dateTimeFromBudget = DateTimeFromBudget(budget);
+            return DateTime.DaysInMonth(dateTimeFromBudget.Year, dateTimeFromBudget.Month);
         }
 
         private static DateTime DateTimeFromBudget(Budget budget)
