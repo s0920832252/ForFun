@@ -20,11 +20,9 @@ namespace TDD_AccountSystem_練習
             var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
 
 
-            var i = 0;
-
             while (currentDate <= endDate)
             {
-                if (i == 0)
+                if (currentDate.Month == startDate.Month)
                 {
                     budget += BudgetOfMonth(startDate,
                                             DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day + 1);
@@ -40,7 +38,6 @@ namespace TDD_AccountSystem_練習
                 }
 
                 currentDate = currentDate.AddMonths(1);
-                i++;
             }
             return budget;
         }
