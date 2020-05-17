@@ -17,5 +17,19 @@ namespace TDD_AccountSystem_練習
             var dateTimeFromBudget = DateTimeFromBudget();
             return DateTime.DaysInMonth(dateTimeFromBudget.Year, dateTimeFromBudget.Month);
         }
+
+        public DateTime FirstDay()
+        {
+            var dateTime = DateTimeFromBudget();
+            var start    = new DateTime(dateTime.Year, dateTime.Month, 1);
+            return start;
+        }
+
+        public DateTime LastDay()
+        {
+            var dateTime = DateTimeFromBudget();
+            var end      = new DateTime(dateTime.Year, dateTime.Month, DaysInMonth());
+            return end;
+        }
     }
 }

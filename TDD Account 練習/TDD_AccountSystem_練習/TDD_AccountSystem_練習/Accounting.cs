@@ -24,26 +24,24 @@ namespace TDD_AccountSystem_練習
                 var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    int days;
+                    DateTime start;
+                    DateTime end;
                     if (currentDate.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
                     {
-                        var start = startDate;
-                        var end = budget.LastDay();
-                        days = (end - start).Days + 1;
+                        start = startDate;
+                        end = budget.LastDay();
                     }
                     else if (currentDate.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
                     {
-                        var start = budget.FirstDay();
-                        var end = endDate;
-                        days = (end - start).Days + 1;
+                        start = budget.FirstDay();
+                        end = endDate;
                     }
                     else
                     {
-                        var start = budget.FirstDay();
-                        var end = budget.LastDay();
-                        days = (end - start).Days + 1;
+                        start = budget.FirstDay();
+                        end = budget.LastDay();
                     }
-
+                    var days = (end - start).Days + 1;
                     var daysInMonth = budget.DaysInMonth();
                     amountOfBudget += (decimal)budget.Amount / daysInMonth * days;
                 }
