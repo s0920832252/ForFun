@@ -10,8 +10,8 @@ namespace TDD_AccountSystem_練習
             EndDate = endDate;
         }
 
-        public DateTime StartDate { get; private set; }
-        public DateTime EndDate { get; private set; }
+        public DateTime StartDate { get; }
+        public DateTime EndDate { get; }
 
         public int OverLappingDays(Period anotherPeriod)
         {
