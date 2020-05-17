@@ -25,9 +25,7 @@ namespace TDD_AccountSystem_練習
                 var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    var overlappingDays = queryPeriod.OverLappingDays(new Period(budget.FirstDay(), budget.LastDay()));
-                    var daysInMonth = budget.DaysInMonth();
-                    amountOfBudget += budget.Amount / daysInMonth * overlappingDays;
+                    amountOfBudget += budget.Amount / budget.DaysInMonth() * queryPeriod.OverLappingDays(new Period(budget.FirstDay(), budget.LastDay()));
                 }
 
                 currentDate = currentDate.AddMonths(1);
