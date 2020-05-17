@@ -13,6 +13,31 @@ namespace TDD_AccountSystem_練習
 
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
+
+        public int OverLappingDays(Budget budget)
+        {
+            DateTime budgetTime = budget.DateTimeFromBudget();
+            DateTime start;
+            DateTime end;
+            if (budgetTime.ToString("yyyyMM") == StartDate.ToString("yyyyMM"))
+            {
+                start = StartDate;
+                end   = budget.LastDay();
+            }
+            else if (budgetTime.ToString("yyyyMM") == EndDate.ToString("yyyyMM"))
+            {
+                start = budget.FirstDay();
+                end   = EndDate;
+            }
+            else
+            {
+                start = budget.FirstDay();
+                end   = budget.LastDay();
+            }
+
+            var days = (end - start).Days + 1;
+            return days;
+        }
     }
 
     class Accounting
@@ -36,7 +61,7 @@ namespace TDD_AccountSystem_練習
                 var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    var overlappingDays = OverLappingDays(new Period(startDate, endDate), budget);
+                    var overlappingDays = new Period(startDate, endDate).OverLappingDays(budget);
                     var daysInMonth = budget.DaysInMonth();
                     amountOfBudget += (decimal)budget.Amount / daysInMonth * overlappingDays;
                 }
@@ -45,31 +70,6 @@ namespace TDD_AccountSystem_練習
             }
 
             return amountOfBudget;
-        }
-
-        public static int OverLappingDays(Period period, Budget budget)
-        {
-            DateTime budgetTime = budget.DateTimeFromBudget();
-            DateTime start;
-            DateTime end;
-            if (budgetTime.ToString("yyyyMM") == period.StartDate.ToString("yyyyMM"))
-            {
-                start = period.StartDate;
-                end   = budget.LastDay();
-            }
-            else if (budgetTime.ToString("yyyyMM") == period.EndDate.ToString("yyyyMM"))
-            {
-                start = budget.FirstDay();
-                end   = period.EndDate;
-            }
-            else
-            {
-                start = budget.FirstDay();
-                end   = budget.LastDay();
-            }
-
-            var days = (end - start).Days + 1;
-            return days;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
