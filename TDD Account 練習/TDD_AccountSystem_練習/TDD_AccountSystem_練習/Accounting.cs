@@ -24,25 +24,7 @@ namespace TDD_AccountSystem_練習
                 var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    DateTime budgetTime = budget.DateTimeFromBudget();
-                    DateTime start;
-                    DateTime end;
-                    if (budgetTime.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
-                    {
-                        start = startDate;
-                        end = budget.LastDay();
-                    }
-                    else if (budgetTime.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
-                    {
-                        start = budget.FirstDay();
-                        end = endDate;
-                    }
-                    else
-                    {
-                        start = budget.FirstDay();
-                        end = budget.LastDay();
-                    }
-                    var days = (end - start).Days + 1;
+                    var days = Days(startDate, endDate, budget);
                     var daysInMonth = budget.DaysInMonth();
                     amountOfBudget += (decimal)budget.Amount / daysInMonth * days;
                 }
@@ -51,6 +33,31 @@ namespace TDD_AccountSystem_練習
             }
 
             return amountOfBudget;
+        }
+
+        private static int Days(DateTime startDate, DateTime endDate, Budget budget)
+        {
+            DateTime budgetTime = budget.DateTimeFromBudget();
+            DateTime start;
+            DateTime end;
+            if (budgetTime.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
+            {
+                start = startDate;
+                end   = budget.LastDay();
+            }
+            else if (budgetTime.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
+            {
+                start = budget.FirstDay();
+                end   = endDate;
+            }
+            else
+            {
+                start = budget.FirstDay();
+                end   = budget.LastDay();
+            }
+
+            var days = (end - start).Days + 1;
+            return days;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
