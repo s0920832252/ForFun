@@ -31,5 +31,10 @@ namespace TDD_AccountSystem_練習
             var end      = new DateTime(dateTime.Year, dateTime.Month, DaysInMonth());
             return end;
         }
+
+        public decimal OverLappingAmount(Period queryPeriod)
+        {
+            return Amount / DaysInMonth() * queryPeriod.OverLappingDays(new Period(FirstDay(), LastDay()));
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace TDD_AccountSystem_練習
 {
-    internal class Period
+    public class Period
     {
         public Period(DateTime startDate, DateTime endDate)
         {
