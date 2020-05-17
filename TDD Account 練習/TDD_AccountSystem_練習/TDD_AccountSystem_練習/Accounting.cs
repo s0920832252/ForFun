@@ -15,20 +15,13 @@ namespace TDD_AccountSystem_練習
                 return BudgetOfMonth(startDate, (endDate - startDate).Days + 1);
             }
 
-            var amountOfBudget = 0m;
+
             var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
-
-
-            while (currentDate <= endDate)
+            var amountOfBudget = 0m;
+            var queryPeriod = new Period(startDate, endDate);
+            foreach (var budget in Repo.GetAll())
             {
-                var queryPeriod = new Period(startDate, endDate);
-                var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
-                if (budget != null)
-                {
-                    amountOfBudget += budget.OverLappingAmount(queryPeriod);
-                }
-
-                currentDate = currentDate.AddMonths(1);
+                amountOfBudget += budget.OverLappingAmount(queryPeriod);
             }
 
             return amountOfBudget;
