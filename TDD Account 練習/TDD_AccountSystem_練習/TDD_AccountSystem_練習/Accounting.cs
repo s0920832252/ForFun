@@ -3,6 +3,18 @@ using System.Linq;
 
 namespace TDD_AccountSystem_練習
 {
+    internal class Period
+    {
+        public Period(DateTime startDate, DateTime endDate)
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+        }
+
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
+    }
+
     class Accounting
     {
         public decimal QueryBudget(DateTime startDate, DateTime endDate)
@@ -24,7 +36,7 @@ namespace TDD_AccountSystem_練習
                 var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    var days = Days(startDate, endDate, budget);
+                    var days = Days(new Period(startDate, endDate), budget);
                     var daysInMonth = budget.DaysInMonth();
                     amountOfBudget += (decimal)budget.Amount / daysInMonth * days;
                 }
@@ -35,20 +47,20 @@ namespace TDD_AccountSystem_練習
             return amountOfBudget;
         }
 
-        private static int Days(DateTime startDate, DateTime endDate, Budget budget)
+        public static int Days(Period period, Budget budget)
         {
             DateTime budgetTime = budget.DateTimeFromBudget();
             DateTime start;
             DateTime end;
-            if (budgetTime.ToString("yyyyMM") == startDate.ToString("yyyyMM"))
+            if (budgetTime.ToString("yyyyMM") == period.StartDate.ToString("yyyyMM"))
             {
-                start = startDate;
+                start = period.StartDate;
                 end   = budget.LastDay();
             }
-            else if (budgetTime.ToString("yyyyMM") == endDate.ToString("yyyyMM"))
+            else if (budgetTime.ToString("yyyyMM") == period.EndDate.ToString("yyyyMM"))
             {
                 start = budget.FirstDay();
-                end   = endDate;
+                end   = period.EndDate;
             }
             else
             {
