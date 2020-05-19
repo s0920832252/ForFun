@@ -19,8 +19,7 @@ namespace TDD_AccountSystem_練習
             {
                 var startBudgetAmount = startBudget.Amount;
                 var startDateDay = startDate.Day - 1;
-                var startDateTime = CreateDateTime(startBudget);
-                var startMonthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
+                var startMonthDays = DaysInMonth(startBudget);
                 amountOfStartBudget = startBudgetAmount / startMonthDays * startDateDay;
             }
 
@@ -29,8 +28,7 @@ namespace TDD_AccountSystem_練習
             if (endBudget != null)
             {
                 var endBudgetAmount = endBudget.Amount;
-                var endDateTime = CreateDateTime(endBudget);
-                var endMonthDays = DateTime.DaysInMonth(endDateTime.Year, endDateTime.Month);
+                var endMonthDays = DaysInMonth(endBudget);
                 var endDateDay = endMonthDays - endDate.Day;
                 amountOfEndBudget = endBudgetAmount / endMonthDays * endDateDay;
             }
@@ -45,6 +43,13 @@ namespace TDD_AccountSystem_練習
                 currentDate = currentDate.AddMonths(1);
             }
             return amountOfBudget - amountOfStartBudget - amountOfEndBudget;
+        }
+
+        private static int DaysInMonth(Budget budget)
+        {
+            var startDateTime  = CreateDateTime(budget);
+            var startMonthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
+            return startMonthDays;
         }
 
         private static DateTime CreateDateTime(Budget budget)
