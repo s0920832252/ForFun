@@ -17,20 +17,14 @@ namespace TDD_AccountSystem_練習
             decimal amountOfStartBudget = 0m;
             if (startBudget != null)
             {
-                var startBudgetAmount = startBudget.Amount;
-                var startDateDay = startDate.Day - 1;
-                var startMonthDays = DaysInMonth(startBudget);
-                amountOfStartBudget = startBudgetAmount / startMonthDays * startDateDay;
+                amountOfStartBudget = AmountBeforeTheDay(startBudget, startDate);
             }
 
             var endBudget = budgets.FirstOrDefault(budget => budget.YearMonth == endDate.ToString("yyyyMM"));
             decimal amountOfEndBudget = 0m;
             if (endBudget != null)
             {
-                var endBudgetAmount = endBudget.Amount;
-                var endMonthDays = DaysInMonth(endBudget);
-                var endDateDay = endMonthDays - endDate.Day;
-                amountOfEndBudget = endBudgetAmount / endMonthDays * endDateDay;
+                amountOfEndBudget = AmountAfterTheDay(endBudget, endDate);
             }
 
             var amountOfBudget = 0m;
@@ -43,6 +37,26 @@ namespace TDD_AccountSystem_練習
                 currentDate = currentDate.AddMonths(1);
             }
             return amountOfBudget - amountOfStartBudget - amountOfEndBudget;
+        }
+
+        private static decimal AmountAfterTheDay(Budget budget, DateTime endDate)
+        {
+            decimal amountOfEndBudget;
+            var     endBudgetAmount = budget.Amount;
+            var     endMonthDays    = DaysInMonth(budget);
+            var     endDateDay      = endMonthDays - endDate.Day;
+            amountOfEndBudget = endBudgetAmount / endMonthDays * endDateDay;
+            return amountOfEndBudget;
+        }
+
+        private static decimal AmountBeforeTheDay(Budget Budget, DateTime startDate)
+        {
+            decimal amountOfStartBudget;
+            var     startBudgetAmount = Budget.Amount;
+            var     startDateDay      = startDate.Day - 1;
+            var     startMonthDays    = DaysInMonth(Budget);
+            amountOfStartBudget = startBudgetAmount / startMonthDays * startDateDay;
+            return amountOfStartBudget;
         }
 
         private static int DaysInMonth(Budget budget)
