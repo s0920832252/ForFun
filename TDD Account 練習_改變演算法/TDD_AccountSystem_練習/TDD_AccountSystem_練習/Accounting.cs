@@ -5,47 +5,44 @@ namespace TDD_AccountSystem_練習
 {
     class Accounting
     {
-        
+
         public decimal QueryBudget(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)
                 return 0;
 
-            var budget = 0m;
-            var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
+            var budgets = Repo.GetAll();
 
-
-            var i = 0;
-
-            while(currentDate <= endDate)
+            var startBudget = budgets.FirstOrDefault(budget => budget.YearMonth == startDate.ToString("yyyyMM"));
+            decimal amountOfStartBudget = 0m;
+            if (startBudget != null)
             {
-                if (i == 0)
-                {
-                    
-                    if (startDate.Month == endDate.Month)
-                    {
-                        budget += BudgetOfMonth(startDate, (endDate - startDate).Days + 1);
-                    }
-                    else
-                    {
-                        budget += BudgetOfMonth(startDate,
-                            DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day + 1);
-                    }
+                var startBudgetAmount = startBudget.Amount;
+                var startDateDay = startDate.Day - 1;
+                var startMonthDays = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+                amountOfStartBudget = startBudgetAmount / startMonthDays * startDateDay;
+            }
 
-                }
-                else if (currentDate.Year == endDate.Year && currentDate.Month == endDate.Month)
-                {
-                    budget += BudgetOfMonth(endDate, endDate.Day);
-                }
-                else
-                {
-                    budget += BudgetOfMonth(currentDate, DateTime.DaysInMonth(currentDate.Year, currentDate.Month));
-                }
+            var endBudget = budgets.FirstOrDefault(budget => budget.YearMonth == endDate.ToString("yyyyMM"));
+            decimal amountOfEndBudget = 0m;
+            if (endBudget != null)
+            {
+                var endBudgetAmount = endBudget.Amount;
+                var endMonthDays = DateTime.DaysInMonth(endDate.Year, endDate.Month);
+                var endDateDay = endMonthDays - endDate.Day;
+                amountOfEndBudget = endBudgetAmount / endMonthDays * endDateDay;
+            }
+
+            var amountOfBudget = 0m;
+            var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
+            while (currentDate <= endDate)
+            {
+                var findBudget = budgets.FirstOrDefault(budget => budget.YearMonth == currentDate.ToString("yyyyMM"));
+                amountOfBudget += findBudget?.Amount ?? 0;
 
                 currentDate = currentDate.AddMonths(1);
-                i++;
             }
-            return budget;
+            return amountOfBudget - amountOfStartBudget - amountOfEndBudget;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
