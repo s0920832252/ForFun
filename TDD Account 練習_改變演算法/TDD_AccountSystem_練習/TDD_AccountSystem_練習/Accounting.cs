@@ -39,34 +39,23 @@ namespace TDD_AccountSystem_練習
             return amountOfBudget - amountOfStartBudget - amountOfEndBudget;
         }
 
-        private static decimal AmountAfterTheDay(Budget budget, DateTime endDate)
+        public static decimal AmountAfterTheDay(Budget budget, DateTime endDate)
         {
-            decimal amountOfEndBudget;
-            var     endBudgetAmount = budget.Amount;
-            var     endMonthDays    = DaysInMonth(budget);
-            var     endDateDay      = endMonthDays - endDate.Day;
-            amountOfEndBudget = endBudgetAmount / endMonthDays * endDateDay;
-            return amountOfEndBudget;
+            return budget.Amount / DaysInMonth(budget) * (DaysInMonth(budget) - endDate.Day);
         }
 
-        private static decimal AmountBeforeTheDay(Budget Budget, DateTime startDate)
+        public static decimal AmountBeforeTheDay(Budget budget, DateTime startDate)
         {
-            decimal amountOfStartBudget;
-            var     startBudgetAmount = Budget.Amount;
-            var     startDateDay      = startDate.Day - 1;
-            var     startMonthDays    = DaysInMonth(Budget);
-            amountOfStartBudget = startBudgetAmount / startMonthDays * startDateDay;
-            return amountOfStartBudget;
+            return budget.Amount / DaysInMonth(budget) * (startDate.Day - 1);
         }
 
-        private static int DaysInMonth(Budget budget)
+        public static int DaysInMonth(Budget budget)
         {
             var startDateTime  = CreateDateTime(budget);
-            var startMonthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
-            return startMonthDays;
+            return DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
         }
 
-        private static DateTime CreateDateTime(Budget budget)
+        public static DateTime CreateDateTime(Budget budget)
         {
             return DateTime.ParseExact(budget.YearMonth, "yyyyMM", null);
         }
