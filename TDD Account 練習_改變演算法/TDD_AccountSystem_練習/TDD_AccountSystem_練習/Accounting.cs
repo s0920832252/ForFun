@@ -28,13 +28,15 @@ namespace TDD_AccountSystem_練習
             }
 
             var amountOfBudget = 0m;
-            var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
-            while (currentDate <= endDate)
+            foreach (var budget in budgets)
             {
-                var findBudget = budgets.FirstOrDefault(budget => budget.YearMonth == currentDate.ToString("yyyyMM"));
-                amountOfBudget += findBudget?.Amount ?? 0;
-
-                currentDate = currentDate.AddMonths(1);
+                var start = new DateTime(startDate.Year, startDate.Month, 1);
+                var end = new DateTime(endDate.Year, endDate.Month, DateTime.DaysInMonth(endDate.Year, endDate.Month));
+                var budgetTime = budget.CreateDateTime();
+                if (start <= budgetTime && end >= budgetTime)
+                {
+                    amountOfBudget += budget.Amount;
+                }
             }
             return amountOfBudget - amountOfStartBudget - amountOfEndBudget;
         }
