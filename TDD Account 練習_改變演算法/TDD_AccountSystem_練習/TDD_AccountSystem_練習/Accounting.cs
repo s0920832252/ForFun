@@ -12,24 +12,19 @@ namespace TDD_AccountSystem_練習
                 return 0;
 
             var budgets = Repo.GetAll();
-
-            var startBudget = budgets.FirstOrDefault(budget => budget.YearMonth == startDate.ToString("yyyyMM"));
-            decimal amountOfStartBudget = 0m;
-            if (startBudget != null)
-            {
-                amountOfStartBudget = startBudget.AmountBeforeTheDay(startDate);
-            }
-
-            var endBudget = budgets.FirstOrDefault(budget => budget.YearMonth == endDate.ToString("yyyyMM"));
-            decimal amountOfEndBudget = 0m;
-            if (endBudget != null)
-            {
-                amountOfEndBudget = endBudget.AmountAfterTheDay(endDate);
-            }
-
             var amountOfBudget = 0m;
             foreach (var budget in budgets)
             {
+                if (budget.YearMonth == startDate.ToString("yyyyMM"))
+                {
+                    amountOfBudget -= budget.AmountBeforeTheDay(startDate);
+                }
+
+                if (budget.YearMonth == endDate.ToString("yyyyMM"))
+                {
+                    amountOfBudget -= budget.AmountAfterTheDay(endDate);
+                }
+
                 var start = new DateTime(startDate.Year, startDate.Month, 1);
                 var end = new DateTime(endDate.Year, endDate.Month, DateTime.DaysInMonth(endDate.Year, endDate.Month));
                 var budgetTime = budget.CreateDateTime();
@@ -38,7 +33,7 @@ namespace TDD_AccountSystem_練習
                     amountOfBudget += budget.Amount;
                 }
             }
-            return amountOfBudget - amountOfStartBudget - amountOfEndBudget;
+            return amountOfBudget;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
