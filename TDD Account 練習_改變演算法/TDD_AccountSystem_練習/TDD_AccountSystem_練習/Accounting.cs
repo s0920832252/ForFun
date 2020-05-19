@@ -17,14 +17,14 @@ namespace TDD_AccountSystem_練習
             decimal amountOfStartBudget = 0m;
             if (startBudget != null)
             {
-                amountOfStartBudget = AmountBeforeTheDay(startBudget, startDate);
+                amountOfStartBudget = startBudget.AmountBeforeTheDay(startDate);
             }
 
             var endBudget = budgets.FirstOrDefault(budget => budget.YearMonth == endDate.ToString("yyyyMM"));
             decimal amountOfEndBudget = 0m;
             if (endBudget != null)
             {
-                amountOfEndBudget = AmountAfterTheDay(endBudget, endDate);
+                amountOfEndBudget = endBudget.AmountAfterTheDay(endDate);
             }
 
             var amountOfBudget = 0m;
@@ -37,27 +37,6 @@ namespace TDD_AccountSystem_練習
                 currentDate = currentDate.AddMonths(1);
             }
             return amountOfBudget - amountOfStartBudget - amountOfEndBudget;
-        }
-
-        public static decimal AmountAfterTheDay(Budget budget, DateTime endDate)
-        {
-            return budget.Amount / DaysInMonth(budget) * (DaysInMonth(budget) - endDate.Day);
-        }
-
-        public static decimal AmountBeforeTheDay(Budget budget, DateTime startDate)
-        {
-            return budget.Amount / DaysInMonth(budget) * (startDate.Day - 1);
-        }
-
-        public static int DaysInMonth(Budget budget)
-        {
-            var startDateTime  = CreateDateTime(budget);
-            return DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
-        }
-
-        public static DateTime CreateDateTime(Budget budget)
-        {
-            return DateTime.ParseExact(budget.YearMonth, "yyyyMM", null);
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
