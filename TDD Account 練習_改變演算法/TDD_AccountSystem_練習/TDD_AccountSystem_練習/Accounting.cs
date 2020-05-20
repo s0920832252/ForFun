@@ -37,14 +37,19 @@ namespace TDD_AccountSystem_練習
                     amountOfBudget -= budget.AmountAfterTheDay(period.EndDate);
                 }
 
-                if (IsSameWithStart(budget, period) ||
-                    IsSameWithEnd(budget, period) ||
-                    InRange(period, budget))
+                if (IsBetweenRange(budget, period))
                 {
                     amountOfBudget += budget.Amount;
                 }
             }
             return amountOfBudget;
+        }
+
+        private static bool IsBetweenRange(Budget budget, Period period)
+        {
+            return IsSameWithStart(budget, period) ||
+                   IsSameWithEnd(budget, period)   ||
+                   InRange(period, budget);
         }
 
         private static bool IsSameWithEnd(Budget budget, Period period)
