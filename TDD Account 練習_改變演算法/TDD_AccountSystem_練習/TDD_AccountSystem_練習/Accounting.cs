@@ -23,25 +23,33 @@ namespace TDD_AccountSystem_練習
                 return 0;
 
             var budgets = Repo.GetAll();
-            var amountOfBudget = 0m;
+            var amountOfBudgets = 0m;
             var period = new Period(startDate, endDate);
             foreach (var budget in budgets)
             {
-                if (IsSameWithStart(budget, period))
-                {
-                    amountOfBudget -= budget.AmountBeforeTheDay(period.StartDate);
-                }
-
-                if (IsSameWithEnd(budget, period))
-                {
-                    amountOfBudget -= budget.AmountAfterTheDay(period.EndDate);
-                }
-
-                if (IsBetweenRange(budget, period))
-                {
-                    amountOfBudget += budget.Amount;
-                }
+                amountOfBudgets += AmountOfBudget(budget, period);
             }
+            return amountOfBudgets;
+        }
+
+        private static decimal AmountOfBudget(Budget budget, Period period)
+        {
+            var amountOfBudget=0m;
+            if (IsSameWithStart(budget, period))
+            {
+                amountOfBudget -= budget.AmountBeforeTheDay(period.StartDate);
+            }
+
+            if (IsSameWithEnd(budget, period))
+            {
+                amountOfBudget -= budget.AmountAfterTheDay(period.EndDate);
+            }
+
+            if (IsBetweenRange(budget, period))
+            {
+                amountOfBudget += budget.Amount;
+            }
+
             return amountOfBudget;
         }
 
