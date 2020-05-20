@@ -27,18 +27,18 @@ namespace TDD_AccountSystem_練習
             var period = new Period(startDate, endDate);
             foreach (var budget in budgets)
             {
-                if (budget.YearMonth == startDate.ToString("yyyyMM"))
+                if (budget.YearMonth == period.StartDate.ToString("yyyyMM"))
                 {
-                    amountOfBudget -= budget.AmountBeforeTheDay(startDate);
+                    amountOfBudget -= budget.AmountBeforeTheDay(period.StartDate);
                 }
 
-                if (budget.YearMonth == endDate.ToString("yyyyMM"))
+                if (budget.YearMonth == period.EndDate.ToString("yyyyMM"))
                 {
-                    amountOfBudget -= budget.AmountAfterTheDay(endDate);
+                    amountOfBudget -= budget.AmountAfterTheDay(period.EndDate);
                 }
 
-                if (budget.YearMonth == startDate.ToString("yyyyMM") ||
-                    budget.YearMonth == endDate.ToString("yyyyMM") ||
+                if (budget.YearMonth == period.StartDate.ToString("yyyyMM") ||
+                    budget.YearMonth == period.EndDate.ToString("yyyyMM") ||
                     InRange(period, budget))
                 {
                     amountOfBudget += budget.Amount;
