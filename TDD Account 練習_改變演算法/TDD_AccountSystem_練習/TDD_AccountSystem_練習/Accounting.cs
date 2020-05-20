@@ -24,10 +24,9 @@ namespace TDD_AccountSystem_練習
                     amountOfBudget -= budget.AmountAfterTheDay(endDate);
                 }
 
-                var start = new DateTime(startDate.Year, startDate.Month, 1);
-                var end = new DateTime(endDate.Year, endDate.Month, DateTime.DaysInMonth(endDate.Year, endDate.Month));
-                var budgetTime = budget.CreateDateTime();
-                if (start <= budgetTime && end >= budgetTime)
+                if (budget.YearMonth == startDate.ToString("yyyyMM") ||
+                    budget.YearMonth == endDate.ToString("yyyyMM") ||
+                    startDate <= budget.CreateDateTime() && endDate >= budget.CreateDateTime())
                 {
                     amountOfBudget += budget.Amount;
                 }
