@@ -26,12 +26,17 @@ namespace TDD_AccountSystem_練習
 
                 if (budget.YearMonth == startDate.ToString("yyyyMM") ||
                     budget.YearMonth == endDate.ToString("yyyyMM") ||
-                    startDate <= budget.CreateDateTime() && endDate >= budget.CreateDateTime())
+                    InRange(startDate, endDate, budget))
                 {
                     amountOfBudget += budget.Amount;
                 }
             }
             return amountOfBudget;
+        }
+
+        private static bool InRange(DateTime startDate, DateTime endDate, Budget budget)
+        {
+            return startDate <= budget.CreateDateTime() && endDate >= budget.CreateDateTime();
         }
 
 
