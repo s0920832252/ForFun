@@ -27,5 +27,29 @@ namespace TDD_AccountSystem_練習
         {
             return Amount / DaysInMonth() * (DaysInMonth() - endDate.Day);
         }
+
+        public decimal AmountBeforeTheDay(Period period)
+        {
+            return period.IsSameWithStart(this) ? AmountBeforeTheDay(period.StartDate) : 0;
+        }
+
+        public decimal AmountAfterTheDay(Period period)
+        {
+            return period.IsSameWithEnd(this) ? AmountAfterTheDay(period.EndDate) : 0;
+        }
+
+        public decimal AmountBetweenRange(Period period)
+        {
+            return period.IsBetweenRange(this) ? Amount : 0;
+        }
+
+        public decimal AmountOfBudget(Period period)
+        {
+            var amountOfBudget = 0m;
+            amountOfBudget -= AmountBeforeTheDay(period);
+            amountOfBudget -= AmountAfterTheDay(period);
+            amountOfBudget += AmountBetweenRange(period);
+            return amountOfBudget;
+        }
     }
 }

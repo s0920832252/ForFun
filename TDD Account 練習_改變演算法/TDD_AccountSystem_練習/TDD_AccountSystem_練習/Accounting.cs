@@ -2,7 +2,7 @@
 
 namespace TDD_AccountSystem_練習
 {
-    internal class Period
+    public class Period
     {
         public Period(DateTime startDate, DateTime endDate)
         {
@@ -12,6 +12,28 @@ namespace TDD_AccountSystem_練習
 
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
+
+        public bool IsSameWithStart(Budget budget)
+        {
+            return budget.YearMonth == StartDate.ToString("yyyyMM");
+        }
+
+        public bool IsSameWithEnd(Budget budget)
+        {
+            return budget.YearMonth == EndDate.ToString("yyyyMM");
+        }
+
+        public bool InRange(Budget budget)
+        {
+            return StartDate <= budget.CreateDateTime() && EndDate >= budget.CreateDateTime();
+        }
+
+        public bool IsBetweenRange(Budget budget)
+        {
+            return IsSameWithStart(budget) ||
+                   IsSameWithEnd(budget)   ||
+                   InRange(budget);
+        }
     }
 
     class Accounting
@@ -27,56 +49,9 @@ namespace TDD_AccountSystem_練習
             var period = new Period(startDate, endDate);
             foreach (var budget in budgets)
             {
-                amountOfBudgets += AmountOfBudget(budget, period);
+                amountOfBudgets += budget.AmountOfBudget(period);
             }
             return amountOfBudgets;
-        }
-
-        private static decimal AmountOfBudget(Budget budget, Period period)
-        {
-            var amountOfBudget = 0m;
-            amountOfBudget -= AmountBeforeTheDay(budget, period);
-            amountOfBudget -= AmountAfterTheDay(budget, period);
-            amountOfBudget += AmountBetweenRange(budget, period);
-
-            return amountOfBudget;
-        }
-
-        private static decimal AmountBetweenRange(Budget budget, Period period)
-        {
-            return IsBetweenRange(budget, period) ? budget.Amount : 0;
-        }
-
-        private static decimal AmountAfterTheDay(Budget budget, Period period)
-        {
-            return IsSameWithEnd(budget, period) ? budget.AmountAfterTheDay(period.EndDate) : 0;
-        }
-
-        private static decimal AmountBeforeTheDay(Budget budget, Period period)
-        {
-            return IsSameWithStart(budget, period) ? budget.AmountBeforeTheDay(period.StartDate) : 0;
-        }
-
-        private static bool IsBetweenRange(Budget budget, Period period)
-        {
-            return IsSameWithStart(budget, period) ||
-                   IsSameWithEnd(budget, period) ||
-                   InRange(period, budget);
-        }
-
-        private static bool IsSameWithEnd(Budget budget, Period period)
-        {
-            return budget.YearMonth == period.EndDate.ToString("yyyyMM");
-        }
-
-        private static bool IsSameWithStart(Budget budget, Period period)
-        {
-            return budget.YearMonth == period.StartDate.ToString("yyyyMM");
-        }
-
-        private static bool InRange(Period period, Budget budget)
-        {
-            return period.StartDate <= budget.CreateDateTime() && period.EndDate >= budget.CreateDateTime();
         }
 
 
