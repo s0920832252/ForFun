@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace TDD_AccountSystem_練習
 {
@@ -10,13 +11,7 @@ namespace TDD_AccountSystem_練習
                 return 0;
 
             var budgets = Repo.GetAll();
-            var amountOfBudgets = 0m;
-            var period = new Period(startDate, endDate);
-            foreach (var budget in budgets)
-            {
-                amountOfBudgets += budget.AmountOfBudget(period);
-            }
-            return amountOfBudgets;
+            return budgets.Sum(budget => budget.AmountOfBudget(new Period(startDate, endDate)));
         }
 
 
