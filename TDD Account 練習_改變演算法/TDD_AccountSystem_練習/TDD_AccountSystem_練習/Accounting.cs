@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace TDD_AccountSystem_練習
 {
@@ -35,18 +34,6 @@ namespace TDD_AccountSystem_練習
             }
             return amountOfBudget;
         }
-
-        private decimal BudgetOfMonth(DateTime startDate, int days)
-        {
-
-
-            var daysInMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
-
-            var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == startDate.ToString("yyyyMM"));
-            if (budget != null) return (decimal)budget.Amount / daysInMonth * days;
-            return 0;
-        }
-
 
 
         public IBudgetRepo Repo { get; set; }
