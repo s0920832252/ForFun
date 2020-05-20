@@ -2,6 +2,18 @@
 
 namespace TDD_AccountSystem_練習
 {
+    internal class Period
+    {
+        public Period(DateTime startDate, DateTime endDate)
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+        }
+
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
+    }
+
     class Accounting
     {
 
@@ -12,6 +24,7 @@ namespace TDD_AccountSystem_練習
 
             var budgets = Repo.GetAll();
             var amountOfBudget = 0m;
+            var period = new Period(startDate, endDate);
             foreach (var budget in budgets)
             {
                 if (budget.YearMonth == startDate.ToString("yyyyMM"))
@@ -26,7 +39,7 @@ namespace TDD_AccountSystem_練習
 
                 if (budget.YearMonth == startDate.ToString("yyyyMM") ||
                     budget.YearMonth == endDate.ToString("yyyyMM") ||
-                    InRange(startDate, endDate, budget))
+                    InRange(period, budget))
                 {
                     amountOfBudget += budget.Amount;
                 }
@@ -34,9 +47,9 @@ namespace TDD_AccountSystem_練習
             return amountOfBudget;
         }
 
-        private static bool InRange(DateTime startDate, DateTime endDate, Budget budget)
+        private static bool InRange(Period period, Budget budget)
         {
-            return startDate <= budget.CreateDateTime() && endDate >= budget.CreateDateTime();
+            return period.StartDate <= budget.CreateDateTime() && period.EndDate >= budget.CreateDateTime();
         }
 
 
