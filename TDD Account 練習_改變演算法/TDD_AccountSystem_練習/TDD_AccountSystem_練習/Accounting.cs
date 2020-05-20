@@ -35,13 +35,26 @@ namespace TDD_AccountSystem_練習
         private static decimal AmountOfBudget(Budget budget, Period period)
         {
             var amountOfBudget = 0m;
-            amountOfBudget -= IsSameWithStart(budget, period) ? budget.AmountBeforeTheDay(period.StartDate) : 0;
-
-            amountOfBudget -= IsSameWithEnd(budget, period) ? budget.AmountAfterTheDay(period.EndDate) : 0;
-
-            amountOfBudget += IsBetweenRange(budget, period) ? budget.Amount : 0;
+            amountOfBudget -= AmountBeforeTheDay(budget, period);
+            amountOfBudget -= AmountAfterTheDay(budget, period);
+            amountOfBudget += AmountBetweenRange(budget, period);
 
             return amountOfBudget;
+        }
+
+        private static decimal AmountBetweenRange(Budget budget, Period period)
+        {
+            return IsBetweenRange(budget, period) ? budget.Amount : 0;
+        }
+
+        private static decimal AmountAfterTheDay(Budget budget, Period period)
+        {
+            return IsSameWithEnd(budget, period) ? budget.AmountAfterTheDay(period.EndDate) : 0;
+        }
+
+        private static decimal AmountBeforeTheDay(Budget budget, Period period)
+        {
+            return IsSameWithStart(budget, period) ? budget.AmountBeforeTheDay(period.StartDate) : 0;
         }
 
         private static bool IsBetweenRange(Budget budget, Period period)
